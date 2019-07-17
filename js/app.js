@@ -53,3 +53,8 @@ $('section').each(function(){
 		}
 	});
 });
+
+$('.mobile-btn').click(function(){
+	$(this).toggleClass('active'); // toggleClass ativa ou desativa caso já estiver ativado
+	$('.mobile-menu').toggleClass('active');
+});
