@@ -1,3 +1,4 @@
+// Mudar tab ao click
 $('[data-group]').each(function(){
 	var $allTarget = $(this).find('[data-target]'),
 			$allClick = $(this).find('[data-click]'),
@@ -20,6 +21,7 @@ $('[data-group]').each(function(){
 	});
 });
 
+// Scroll suave para link interno
 $('.menu-nav a[href^="#"]').click(function(e){
 	e.preventDefault();
 	var id = $(this).attr('href'),
@@ -30,6 +32,7 @@ $('.menu-nav a[href^="#"]').click(function(e){
 	}, 500);
 });
 
+// Scroll suave para o topo
 $('.logo').click(function(e){
 	e.preventDefault();
 	$('html, body').animate({
@@ -37,16 +40,17 @@ $('.logo').click(function(e){
 	}, 500)
 });
 
+// Mudar para active o menu de acordo com a sua área
 $('section').each(function(){
-	var height = $(this).height(), // Pega o tamanho total da section
-		offsetTop = $(this).offset().top, // Distância da section até o topo
-		menuHeight = $('.menu').innerHeight(),
-		id = $(this).attr('id'), // Atribui o id da section na variável id
-		$itemMenu = $('a[href="#' + id + '"]'); // Atribui o href com o #id na variavel $itemMenu
+	var height = $(this).height(),
+			offsetTop = $(this).offset().top,
+			menuHeight = $('.menu').innerHeight(),
+			id = $(this).attr('id'),
+			$itemMenu = $('a[href="#' + id + '"]');
 	
 	$(window).scroll(function(){
-		var scrollTop = $(window).scrollTop(); // Coloca na variável scrollTop a distancia do scroll na tela até o topo
-		if (offsetTop - menuHeight < scrollTop && offsetTop + height - menuHeight > scrollTop) {
+		var scrollTop = $(window).scrollTop();
+		if(offsetTop - menuHeight < scrollTop && offsetTop + height - menuHeight > scrollTop) {
 			$itemMenu.addClass('active');
 		} else {
 			$itemMenu.removeClass('active');
@@ -54,7 +58,24 @@ $('section').each(function(){
 	});
 });
 
+// Botão do menu mobile
 $('.mobile-btn').click(function(){
-	$(this).toggleClass('active'); // toggleClass ativa ou desativa caso já estiver ativado
+	$(this).toggleClass('active');
 	$('.mobile-menu').toggleClass('active');
 });
+
+// Slider
+$('.slide > :first').addClass('active');
+
+function rotateSlide() {
+	var activeSlide = $('.slide > .active'),
+		 nextSlide = activeSlide.next();
+
+	if(nextSlide.length == 0) {
+		nextSlide = $('.slide > :first')
+	}
+	activeSlide.removeClass('active');
+	nextSlide.addClass('active');
+}
+
+setInterval(rotateSlide, 2000);
